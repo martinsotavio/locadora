@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Localiza Clone</string>
+    <string name="login_title">Bem-vindo à Locadora</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Senha</string>
+    <string name="login_button">Entrar</string>
+    <string name="register_text">Não tem conta? Cadastre-se</string>
+    <string name="register_title">Criar Conta</string>
+    <string name="name_hint">Nome Completo</string>
+    <string name="register_button">Cadastrar</string>
+    <string name="available_cars">Carros Disponíveis</string>
+    <string name="rent_button">Alugar Agora</string>
+    <string name="calculate_button">Calcular Total</string>
+    <string name="total_price_label">Valor Total: R$</string>
+    <string name="start_date_hint">Data Início (DD/MM/AAAA)</string>
+    <string name="end_date_hint">Data Fim (DD/MM/AAAA)</string>
+</resources>
