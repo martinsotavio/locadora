@@ -18,12 +18,20 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = LocadoraDatabase.getDatabase(this, lifecycleScope)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Cadastro"
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        val db = LocadoraDatabase.getDatabase(this)
 
         binding.btnRegister.setOnClickListener {
             val name = binding.etFullName.text.toString()
-            val email = binding.etEmailRegister.text.toString()
-            val password = binding.etPasswordRegister.text.toString()
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
 
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 lifecycleScope.launch {

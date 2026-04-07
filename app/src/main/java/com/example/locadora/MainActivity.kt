@@ -2,41 +2,36 @@ package com.example.locadora
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.locadora.adapter.CarroAdapter
-import com.example.locadora.database.LocadoraDatabase
 import com.example.locadora.databinding.ActivityMainBinding
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: CarroAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val db = LocadoraDatabase.getDatabase(this, lifecycleScope)
-
-        setupRecyclerView()
-
-        lifecycleScope.launch {
-            val listaCarros = db.carroDao().getAllCarros()
-            adapter.updateList(listaCarros)
-        }
+        
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
     }
 
-    private fun setupRecyclerView() {
-        adapter = CarroAdapter(emptyList()) { carro ->
-            val intent = Intent(this, DetalhesCarroActivity::class.java)
-            intent.putExtra("carro_id", carro.id)
-            startActivity(intent)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_logout) {
+            getSharedPreferences("user_prefs", MODE_PRIVATE).edit().clear().apply()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return true
         }
-        binding.rvCars.layoutManager = LinearLayoutManager(this)
-        binding.rvCars.adapter = adapter
+        return super.onOptionsItemSelected(item)
     }
 }

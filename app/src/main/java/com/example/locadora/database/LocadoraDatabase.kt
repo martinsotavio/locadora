@@ -10,9 +10,10 @@ import com.example.locadora.model.Locacao
 import com.example.locadora.model.Usuario
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-@Database(entities = [Usuario::class, Carro::class, Locacao::class], version = 1)
+@Database(entities = [Usuario::class, Carro::class, Locacao::class], version = 1, exportSchema = false)
 abstract class LocadoraDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): UsuarioDao
@@ -22,36 +23,33 @@ abstract class LocadoraDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: LocadoraDatabase? = null
+        private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-        fun getDatabase(context: Context, scope: CoroutineScope): LocadoraDatabase {
+        fun getDatabase(context: Context): LocadoraDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     LocadoraDatabase::class.java,
                     "locadora_database"
                 )
-                .addCallback(LocadoraDatabaseCallback(scope))
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        applicationScope.launch {
+                            INSTANCE?.let { database ->
+                                populateDatabase(database.carroDao())
+                            }
+                        }
+                    }
+                })
+                .fallbackToDestructiveMigration()
                 .build()
                 INSTANCE = instance
                 instance
             }
         }
-    }
 
-    private class LocadoraDatabaseCallback(
-        private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
-
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            INSTANCE?.let { database ->
-                scope.launch(Dispatchers.IO) {
-                    populateDatabase(database.carroDao())
-                }
-            }
-        }
-
-        suspend fun populateDatabase(carroDao: CarroDao) {
+        private suspend fun populateDatabase(carroDao: CarroDao) {
             carroDao.insert(Carro(modelo = "Onix", marca = "Chevrolet", ano = 2023, placa = "ABC-1234", tipo = "Popular", precoDiaria = 120.0))
             carroDao.insert(Carro(modelo = "Corolla", marca = "Toyota", ano = 2024, placa = "XYZ-9876", tipo = "Sedan", precoDiaria = 250.0))
             carroDao.insert(Carro(modelo = "Compass", marca = "Jeep", ano = 2023, placa = "JEP-5555", tipo = "SUV", precoDiaria = 350.0))

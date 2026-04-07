@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = LocadoraDatabase.getDatabase(this, lifecycleScope)
+        val db = LocadoraDatabase.getDatabase(this)
 
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()

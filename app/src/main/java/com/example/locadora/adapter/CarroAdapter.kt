@@ -30,10 +30,11 @@ class CarroAdapter(
 
     inner class CarroViewHolder(private val binding: ItemCarroBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(carro: Carro) {
+            val context = binding.root.context
             binding.tvModelo.text = carro.modelo
             binding.tvMarcaAno.text = "${carro.marca} - ${carro.ano}"
             binding.tvTipo.text = carro.tipo
-            binding.tvPreco.text = "R$ ${carro.precoDiaria}/dia"
+            binding.tvPreco.text = context.getString(com.example.locadora.R.string.daily_rate, carro.precoDiaria)
             
             binding.root.setOnClickListener { onCarClick(carro) }
         }

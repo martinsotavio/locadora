@@ -1,5 +1,6 @@
 package com.example.locadora
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.example.locadora.model.Carro
 import com.example.locadora.model.Locacao
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -19,14 +21,23 @@ class DetalhesCarroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetalhesCarroBinding
     private var carro: Carro? = null
     private var valorTotalCalculado: Double = 0.0
+    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalhesCarroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Detalhes do Aluguel"
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         val carroId = intent.getIntExtra("carro_id", -1)
-        val db = LocadoraDatabase.getDatabase(this, lifecycleScope)
+        val db = LocadoraDatabase.getDatabase(this)
 
         lifecycleScope.launch {
             carro = db.carroDao().getCarroById(carroId)
@@ -36,6 +47,14 @@ class DetalhesCarroActivity : AppCompatActivity() {
             }
         }
 
+        binding.etDataInicio.setOnClickListener {
+            showDatePicker { date -> binding.etDataInicio.setText(date) }
+        }
+
+        binding.etDataFim.setOnClickListener {
+            showDatePicker { date -> binding.etDataFim.setText(date) }
+        }
+
         binding.btnCalcular.setOnClickListener {
             calcularValor()
         }
@@ -43,6 +62,17 @@ class DetalhesCarroActivity : AppCompatActivity() {
         binding.btnAlugar.setOnClickListener {
             realizarLocacao(db)
         }
+    }
+
+    private fun showDatePicker(onDateSelected: (String) -> Unit) {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            val formattedDate = "%02d/%02d/%04d".format(selectedDay, selectedMonth + 1, selectedYear)
+            onDateSelected(formattedDate)
+        }, year, month, day).show()
     }
 
     private fun calcularValor() {
