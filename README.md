@@ -24,11 +24,7 @@ O projeto segue o padrão de arquitetura modular para persistência:
 - Listagem de carros (Onix, Corolla, Compass, Hilux, HB20).
 - Cálculo automático de locação com base em datas (Diárias + Taxa de R$ 50,00).
 
-## Instruções de Execução
-1. Clone o repositório.
-2. Abra no Android Studio.
-3. Sincronize o Gradle.
-4. Execute em um emulador com API 24+.
 
-## Integrantes
-- Martins Otávio
+
+## Integrante
+- Otávio Martins Marques
