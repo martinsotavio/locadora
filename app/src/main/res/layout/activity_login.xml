@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,7 +12,7 @@
         android:layout_width="200dp"
         android:layout_height="80dp"
         android:src="@android:drawable/ic_menu_directions"
-        android:tint="@color/localiza_green"
+        app:tint="@color/localiza_green"
         android:layout_marginBottom="32dp"/>
 
     <TextView
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        com.google.android.material:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
