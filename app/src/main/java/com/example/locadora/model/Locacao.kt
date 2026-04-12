@@ -10,5 +10,6 @@ data class Locacao(
     val usuarioId: Int,
     val dataInicio: String,
     val dataFim: String,
-    val valorTotal: Double
+    val valorTotal: Double,
+    val dataRegistro: String // Horário exato da locação
 )

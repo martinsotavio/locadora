@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Locadora Martins</string>
+    <string name="app_name">LocAi</string>
 
     <!-- Login -->
-    <string name="login_title">Bem-vindo à Martins</string>
+    <string name="login_title">Bem-vindo à LocAi</string>
     <string name="email_hint">E-mail</string>
     <string name="password_hint">Senha</string>
     <string name="login_button">Entrar</string>

@@ -119,16 +119,25 @@ class DetalhesCarroActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
+            val sdfRegistro = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+            val dataRegistro = sdfRegistro.format(Calendar.getInstance().time)
+
             val locacao = Locacao(
                 carroId = carro?.id ?: 0,
                 usuarioId = userId,
                 dataInicio = binding.etDataInicio.text.toString(),
                 dataFim = binding.etDataFim.text.toString(),
-                valorTotal = valorTotalCalculado
+                valorTotal = valorTotalCalculado,
+                dataRegistro = dataRegistro
             )
             db.locacaoDao().insert(locacao)
             Toast.makeText(this@DetalhesCarroActivity, "Locação realizada com sucesso!", Toast.LENGTH_LONG).show()
-            finish()
+            
+            // Redirecionar para a tela de relatório de aluguéis
+            android.content.Intent(this@DetalhesCarroActivity, ListaLocacoesActivity::class.java).also {
+                startActivity(it)
+                finish()
+            }
         }
     }
 }

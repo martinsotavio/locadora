@@ -18,6 +18,13 @@ class MainActivity : AppCompatActivity() {
         
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = getString(R.string.app_name)
+
+        // Garantir que o Fragmento seja carregado
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CarListFragment())
+                .commit()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -26,11 +33,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_logout) {
-            getSharedPreferences("user_prefs", MODE_PRIVATE).edit().clear().apply()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return true
+        when (item.itemId) {
+            R.id.action_relatorio -> {
+                startActivity(Intent(this, ListaLocacoesActivity::class.java))
+                return true
+            }
+            R.id.action_logout -> {
+                getSharedPreferences("user_prefs", MODE_PRIVATE).edit().clear().apply()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

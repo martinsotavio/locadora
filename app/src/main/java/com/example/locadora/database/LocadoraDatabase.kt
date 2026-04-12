@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-@Database(entities = [Usuario::class, Carro::class, Locacao::class], version = 1, exportSchema = false)
+@Database(entities = [Usuario::class, Carro::class, Locacao::class], version = 2, exportSchema = false)
 abstract class LocadoraDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): UsuarioDao
@@ -55,6 +55,8 @@ abstract class LocadoraDatabase : RoomDatabase() {
             carroDao.insert(Carro(modelo = "Compass", marca = "Jeep", ano = 2023, placa = "JEP-5555", tipo = "SUV", precoDiaria = 350.0))
             carroDao.insert(Carro(modelo = "Hilux", marca = "Toyota", ano = 2024, placa = "HLX-4444", tipo = "Caminhonete", precoDiaria = 450.0))
             carroDao.insert(Carro(modelo = "HB20", marca = "Hyundai", ano = 2022, placa = "HBD-2020", tipo = "Popular", precoDiaria = 110.0))
+            carroDao.insert(Carro(modelo = "Civic", marca = "Honda", ano = 2024, placa = "CIV-2024", tipo = "Sedan", precoDiaria = 280.0))
+            carroDao.insert(Carro(modelo = "Renegade", marca = "Jeep", ano = 2023, placa = "RNG-8888", tipo = "SUV", precoDiaria = 220.0))
         }
     }
 }
