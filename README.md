@@ -27,5 +27,15 @@ O projeto utiliza uma arquitetura baseada em componentes do Android Jetpack:
 - **Acessibilidade:** Implementação de `contentDescription` e navegação facilitada com botões de retorno em todas as telas.
 - **Padronização Visual:** Tema forçado em modo claro para garantir visibilidade e contraste em qualquer dispositivo.
 
+## Telas do Aplicativo
+Aqui estão as capturas de tela do sistema em funcionamento:
+
+<p align="center">
+  <img src="screenshots/login.png" width="200" title="Tela de Login">
+  <img src="screenshots/frota.png" width="200" title="Lista de Carros">
+  <img src="screenshots/detalhes.png" width="200" title="Detalhes do Aluguel">
+  <img src="screenshots/relatorio.png" width="200" title="Relatório de Locações">
+</p>
+
 ## Integrante
 - Otávio Martins Marques
