@@ -133,7 +133,7 @@ class DetalhesCarroActivity : AppCompatActivity() {
             db.locacaoDao().insert(locacao)
             Toast.makeText(this@DetalhesCarroActivity, "Locação realizada com sucesso!", Toast.LENGTH_LONG).show()
             
-            // Redirecionar para a tela de relatório de aluguéis
+
             android.content.Intent(this@DetalhesCarroActivity, ListaLocacoesActivity::class.java).also {
                 startActivity(it)
                 finish()

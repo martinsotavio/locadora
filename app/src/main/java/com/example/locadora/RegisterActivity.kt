@@ -10,9 +10,7 @@ import com.example.locadora.model.Usuario
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityRegisterBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -25,7 +23,9 @@ class RegisterActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-
+        binding.tvLogin.setOnClickListener {
+            finish()
+        }
         val db = LocadoraDatabase.getDatabase(this)
 
         binding.btnRegister.setOnClickListener {

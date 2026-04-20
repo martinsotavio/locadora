@@ -48,7 +48,7 @@ class CarListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             var listaCarros = db.carroDao().getAllCarros()
             
-            // Se a lista estiver vazia (erro de migração ou banco limpo), vamos popular manualmente
+
             if (listaCarros.isEmpty()) {
                 db.carroDao().insert(com.example.locadora.model.Carro(modelo = "Civic", marca = "Honda", ano = 2024, placa = "CIV-2024", tipo = "Sedan", precoDiaria = 280.0))
                 db.carroDao().insert(com.example.locadora.model.Carro(modelo = "Renegade", marca = "Jeep", ano = 2023, placa = "RNG-8888", tipo = "SUV", precoDiaria = 220.0))

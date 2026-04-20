@@ -33,7 +33,7 @@ class LocacaoAdapter(
             binding.tvPeriodo.text = "Período: ${locacao.dataInicio} - ${locacao.dataFim}"
             binding.tvValorTotal.text = String.format("Total: R$ %.2f", locacao.valorTotal)
             
-            // Exibindo o horário do registro da locação
+
             binding.tvDataRegistro.text = "Realizado em: ${locacao.dataRegistro}"
             
             binding.root.contentDescription = "${locacao.modeloCarro} alugado por ${locacao.nomeUsuario}. Realizado em: ${locacao.dataRegistro}"
